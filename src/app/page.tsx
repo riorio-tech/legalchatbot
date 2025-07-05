@@ -43,7 +43,7 @@ export default function Home() {
     setIsLoading(true);
 
     try {
-      let res, data;
+      let res;
       setErrorDetail(null);
       const payload = { message: inputText, customPrompt };
       if (attachments.length > 0 && attachments[0].type === "application/pdf") {
@@ -64,7 +64,7 @@ export default function Home() {
           body: JSON.stringify(payload),
         });
       }
-      data = await res.json();
+      const data = await res.json();
       if (!res.ok) {
         setErrorDetail(JSON.stringify(data.debug, null, 2));
       }

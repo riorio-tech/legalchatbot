@@ -237,14 +237,14 @@ export default function Home() {
                 {/* 添付ファイル表示 */}
                 {attachments.length > 0 && (
                   <div className="flex flex-wrap gap-2">
-                    {attachments.map((file, index) => (
+                    {attachments.map((file) => (
                       <div
-                        key={index}
+                        key={file.name}
                         className="flex items-center gap-2 bg-blue-50 px-3 py-1 rounded-full text-sm"
                       >
                         <span>📎 {file.name}</span>
                         <button
-                          onClick={() => removeAttachment(index)}
+                          onClick={() => removeAttachment(attachments.findIndex(f => f.name === file.name))}
                           className="text-red-500 hover:text-red-700"
                         >
                           ×

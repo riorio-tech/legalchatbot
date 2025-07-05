@@ -44,15 +44,15 @@ async function extractTextFromFile(file: File): Promise<string> {
       return data.text;
     }
     return "[未対応ファイル形式]";
-  } catch (e: any) {
-    return `[ファイル抽出エラー: ${e?.message || e}]`;
+  } catch (e) {
+    return `[ファイル抽出エラー: ${(e as Error)?.message || e}]`;
   }
 }
 
 export async function POST(req: NextRequest) {
   let message = "";
-  let extractedTexts: string[] = [];
-  let debugInfo: any = {};
+  const extractedTexts: string[] = [];
+  const debugInfo: Record<string, unknown> = {};
   let customPrompt = "";
 
   try {
@@ -118,7 +118,7 @@ export async function POST(req: NextRequest) {
     const data = await openaiRes.json();
     const content = data.choices?.[0]?.message?.content || "AI応答の取得に失敗しました。";
     return NextResponse.json({ result: { content }, debug: debugInfo });
-  } catch (e: any) {
-    return NextResponse.json({ result: { content: `サーバーエラー: ${e?.message || e}` }, debug: { error: e?.stack || e } }, { status: 500 });
+  } catch (e) {
+    return NextResponse.json({ result: { content: `サーバーエラー: ${(e as Error)?.message || e}` }, debug: { error: (e as Error)?.stack || e } }, { status: 500 });
   }
 } 

@@ -50,7 +50,7 @@ export default function Home() {
         const formData = new FormData();
         formData.append("message", inputText);
         formData.append("customPrompt", customPrompt);
-        attachments.forEach((file, idx) => {
+        attachments.forEach((file) => {
           formData.append("file", file);
         });
         res = await fetch("/api/chat", {
